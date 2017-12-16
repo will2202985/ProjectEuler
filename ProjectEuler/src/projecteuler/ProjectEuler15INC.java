@@ -5,6 +5,7 @@ package projecteuler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author William
@@ -18,6 +19,7 @@ public class ProjectEuler15INC {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println(gridPaths(2,2));
+		System.out.println(gridPaths(10,10));
 		
 	}
 	
@@ -37,17 +39,18 @@ public class ProjectEuler15INC {
 		// We need a starting point which will always be int[rows, columns] so we add that to our arraylist which will store the moves we have made.
 		movesMade.add(startPoint);
 			
-		/* This section subtracts 1 from the rows and columns of each array that hasn't had 1 subtracted from it's elements, each subtraction is stored in our movesMade arrayList as a 
-		 * new int array. This will be done until every array that hasn't had a subtraction is = to  {0, 0}.
+		/* This section subtracts 1 from the rows and columns of each array that hasn't had 1 subtracted from it's elements, each subtraction is stored in our
+		 * movesMade arrayList as a new int array. This will be done until every array that hasn't had a subtraction is = to  {0, 0}.
 		 * */
 		while(changesMade){
 			changesMade = false;
 			
 			newLength = movesMade.size();
+			previousLength = newLength;
 			
-			for(int j = previousLength; j < newLength; j++){
+			for(int j = 0; j < newLength; j++){
 				for(int i = 0; i < 2; i++){
-					int[] currentMove = movesMade.get(previousLength).clone();
+					int[] currentMove = movesMade.get(j).clone();
 										
 					if(currentMove[i] > 0){
 						
@@ -55,12 +58,28 @@ public class ProjectEuler15INC {
 						movesMade.add(currentMove);
 						changesMade = true;
 
-					} // end if
+					}// end if 
+					else{
+						if(Arrays.equals(currentMove, endPoint)){
+							result++;
+							movesMade.remove(j);
+							//previousLength--;
+							newLength--;
+							j = 0;
+							if(movesMade.size() == 0) 
+								return result;
+						}
+					}// end else
+					
 				}// end inner for-loop
+								
+				//previousLength++;
 				
-				previousLength++;
-				
-			}// end outer for-loop		
+			}// end outer for-loop
+
+			removeRangeOfIndices(movesMade, 0, previousLength-1);
+			//previousLength = newLength;
+			
 		}// end while loop
 		
 		// Test code printing out every move made start to finish
@@ -72,13 +91,21 @@ public class ProjectEuler15INC {
 		}*/
 		
 		// At the end of all this we check for how many arrays with {0,0} are in the arrayList and that is our answer.
-		for(int i = 0; i < movesMade.size(); i++){
+		/*for(int i = 0; i < movesMade.size(); i++){
 			if(Arrays.equals(movesMade.get(i), endPoint)){
 				result++;
 			}
-		}
+		}*/
 		
 		return result;
+	}
+	
+	public static void removeRangeOfIndices(List<?> yourList, int startingIndex, int endingIndex){
+		if(endingIndex < startingIndex) return;
+		while(startingIndex != endingIndex+1){
+			yourList.remove(startingIndex);
+			endingIndex--;
+		}
 	}
 
 }

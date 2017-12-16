@@ -15,6 +15,7 @@ public class ProjectEuler05 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println(divisibleByAllNumbersUpTo(20));
+		System.out.println(divisibleByAllNumsUpTo(20));
 		
 	}
 	
@@ -39,8 +40,27 @@ public class ProjectEuler05 {
 			}
 		}
 		
-		
 		return true;
+	}
+	
+	
+	// Wrote another method to solve this problem.
+	// Returns the first number divisible by all numbers up to parameter num.
+	public static int divisibleByAllNumsUpTo(int num){
+		int result = 0;
+		for(int i = 1; i < Integer.MAX_VALUE; i++){
+			for(int j = 1; j <= num; j++){
+				if(i % j != 0){
+					result = 0;
+					break;
+				}
+				result = i;
+			}
+			if(result != 0){
+				break;
+			}
+		}
+		return result;
 	}
 	
 }
