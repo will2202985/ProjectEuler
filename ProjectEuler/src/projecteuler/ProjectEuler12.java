@@ -13,11 +13,12 @@ public class ProjectEuler12 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 		ArrayList<Long> triangleNumbers = generateTriangleNumbers(1000000);
 		long numOfDivisors = 0;
 		int i = 0;
 		while(true){
-			numOfDivisors = getNumberOfDivisors(triangleNumbers.get(i));
+			numOfDivisors = numOfDivisors(triangleNumbers.get(i));
 			if(numOfDivisors > 500){
 				break;
 			}
@@ -29,13 +30,13 @@ public class ProjectEuler12 {
 		
 	}
 	
-	//This method will generate an arraylist of Triangle numbers. The amount of numbers you get will be the parameter numberOfTriangleNumbers -1.
+	//This method will generate an arraylist of Triangle numbers. The amount of numbers you get will be the parameter numberOfTriangleNumbers.
 	public static ArrayList<Long> generateTriangleNumbers(long numberOfTriangleNumbers){
 		ArrayList<Long> triangleNumbers = new ArrayList<Long>();
 		long triangleNumber = 1;
 		triangleNumbers.add(triangleNumber);
 		
-		for(int i = 2; i < numberOfTriangleNumbers; i++){
+		for(int i = 2; i <= numberOfTriangleNumbers; i++){
 			triangleNumber += i;
 			triangleNumbers.add(triangleNumber);
 		}
@@ -43,6 +44,8 @@ public class ProjectEuler12 {
 		return triangleNumbers;
 	}
 	
+	/*
+	//Used this method originally, it is from stackoverflow and is more efficient than mine but I got mine fast enough for the problem so I will use that.
 	//This method will take in an integer and return its number of divisors using prime factorization. From Stackoverflow. My method was too slow :(
 	public static long getNumberOfDivisors (long n) {
 	    int ret = 1;
@@ -58,22 +61,25 @@ public class ProjectEuler12 {
 	        factor++;
 	    }
 	    return ret;
+	}*/
+
+	// This method takes in a long and returns the number of divisors it has. Originally was a lot slower upgraded it to fit the need of the problem.
+	public static int numOfDivisors(long num){
+	if(num == 1){
+		return 1;
+	}
+	int numOfDivisors = 2;
+	for(int i = 2; i <= Math.sqrt(num); i++){
+		
+		if(num % i == 0){
+			numOfDivisors+=2;
+		}
+		
+		if(i * i == num) numOfDivisors--;
+		
 	}
 	
-	// My slow numOfDivisors method couldn't solve the problem soon enough :(
-    /*	public static int numOfDivisors(long num){
-		if(num == 1){
-			return 1;
-		}
-		int numOfDivisors = 1;
-		for(int i = 1; i <= num/2; i++){
-			if(num % i == 0){
-				numOfDivisors++;
-			}
-		}
-		
-		
-		return numOfDivisors;
-	}*/
+	return numOfDivisors;
+}
 
 }
