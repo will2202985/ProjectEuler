@@ -45,9 +45,9 @@ public class ProjectEuler30 {
 		// Finally we need our returned total for the sum of the digit power sums.
 		int runningTotal = 0;
 		
-		// The only tricky part about this problem is finding the point where you stop looking for numbers, 20 raised to whatever power you're looking for works for 
-		// this problem it may need to be higher for powers higher than 5. Originally I thought to do 10 raised to the power param but that didn't work for 5.
-		for(int i = 2; i < Math.pow(20, power); i++){
+		// The only tricky part about this problem is finding the point where you stop looking for numbers. I chose to check every number up to 10 to the power you
+		// are looking for + 1. This may not work for higher powers.
+		for(int i = 2; i < Math.pow(10, power + 1); i++){
 			
 			// We turn every number to a string to iterate through the chars and use their numeric value to get the digit power sum.
 			currentNumber = Integer.toString(i);
